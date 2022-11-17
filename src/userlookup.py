@@ -1,12 +1,16 @@
 import requests
+from colorama import Fore, Style, init
+init()
 
 def getUser():
     id = input('Introduce el nombre de usuario: ')
-    r = requests.get(f'https://api.twitter.com/2/users/by/username/{id}', headers={'Authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAAKIGNgEAAAAA%2FHm01Yp1vS4gKfQqlwdRT4xdroI%3DanyAJ4PXrWUhfKHwEjAIGtYMu9bg1A6Yf7vzqwBBpvLO975Vs3'})
+    r = requests.get(f'https://api.twitter.com/2/users/by/username/{id}', headers={'Authorization': 'Bearer '})
 
     if r.status_code == 200:
         respuesta = r.json()
-        print(respuesta)
+        name = respuesta['data']['name']
+        username = respuesta['data']['username']
+        print(Style.BRIGHT + f'\n[*] Informacion del usuario:\n', Fore.GREEN + f'Nombre de usuario -> {name}\n Username -> {username}')
     else:
         print(f'Se ha producido un error -> {r.status_code}')
 
